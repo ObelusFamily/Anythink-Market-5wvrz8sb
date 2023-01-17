@@ -147,6 +147,9 @@ router.post("/", auth.required, function(req, res, next) {
       var item = new Item(req.body.item);
 
       item.seller = user;
+      if (!item.image) {
+        item.image = "https://static.productionready.io/images/smiley-cyrus.jpg";
+      }
 
       return item.save().then(function() {
         sendEvent('item_created', { item: req.body.item })
